@@ -17,6 +17,7 @@ import {
 } from "react-native";
 
 import PropTypes from "prop-types";
+import { widthPercentageToDP, heightPercentageToDP } from "react-native-responsive-screen";
 
 export default class ToggleSwitch extends React.Component {
   static calculateDimensions(size) {
@@ -31,10 +32,10 @@ export default class ToggleSwitch extends React.Component {
         };
       case "large":
         return {
-          width: 70,
-          padding: 20,
-          circleWidth: 30,
-          circleHeight: 30,
+          width: widthPercentageToDP(37),
+          padding: heightPercentageToDP(3.5),
+          circleWidth: widthPercentageToDP(11),
+          circleHeight:  widthPercentageToDP(11),
           translateX: 38
         };
       default:
@@ -80,7 +81,7 @@ export default class ToggleSwitch extends React.Component {
   createToggleSwitchStyle = () => ({
     justifyContent: "center",
     width: this.dimensions.width,
-    borderRadius: 20,
+    borderRadius: widthPercentageToDP(10),
     padding: this.dimensions.padding,
     backgroundColor: this.props.isOn ? this.props.onColor : this.props.offColor,
     ...(this.props.isOn ? this.props.trackOnStyle : this.props.trackOffStyle)
@@ -89,7 +90,9 @@ export default class ToggleSwitch extends React.Component {
   createInsideCircleStyle = () => ({
     alignItems: "center",
     justifyContent: "center",
-    margin: 4,
+    // margin: 4,
+    alignContent: 'center',
+    // paddingRight: widthPercentageToDP(1),
     position: "absolute",
     backgroundColor: "white",
     transform: [{ translateX: this.offsetX }],
@@ -116,8 +119,7 @@ export default class ToggleSwitch extends React.Component {
 
     Animated.timing(this.offsetX, {
       toValue,
-      duration: 300,
-      useNativeDriver: true,
+      duration: 300
     }).start();
 
     return (
@@ -148,3 +150,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 10
   }
 });
+
+// def supportLibVersion = safeExtGet('supportLibVersion', '28.0.0')
